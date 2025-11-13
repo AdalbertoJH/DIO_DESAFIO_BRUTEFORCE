@@ -100,7 +100,6 @@ echo -e 'user\nmsfadmin\nadmin\nroot' > users.txt
 
 # Lista de senhas comuns
 echo -e '123456\npassword\nqwerty\nmsfadmin' > pass.txt
-```
 
 ![Validação das Wordlists](images/validacao-wordlists.png)
 
