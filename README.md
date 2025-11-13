@@ -264,6 +264,7 @@ max_per_ip=2                 # Máximo 2 conexões por IP
 | Usar um WAF | Web Application Firewall filtra ataques | 🟡 Média |
 
 **Exemplo prático em PHP:**
+
 ```php
 // Contar tentativas de login
 $_SESSION['tentativas'] = ($_SESSION['tentativas'] ?? 0) + 1;
@@ -400,6 +401,7 @@ max_per_ip=2
 | 🛡️ **WAF (Web Application Firewall)** | ModSecurity, Cloudflare, AWS WAF | 🟡 Média |
 
 **Exemplo de implementação de bloqueio de tentativas (PHP):**
+
 ```php
 // Incrementar contador de falhas
 $_SESSION['login_attempts'] = ($_SESSION['login_attempts'] ?? 0) + 1;
